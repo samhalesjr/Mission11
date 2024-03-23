@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Books List";
+}
+
+@model BookstoreListViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Explore Our Books</h1>
+    <p>Discover a wide range of books in our collection.</p>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>ISBN</th>
+            <th>Classification</th>
+            <th>Category</th>
+            <th>Page Count</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Book book in Model.Books)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => book.Title)</td>
+                <td>@Html.DisplayFor(modelItem => book.Author)</td>
+                <td>@Html.DisplayFor(modelItem => book.Publisher)</td>
+                <td>@Html.DisplayFor(modelItem => book.Isbn)</td>
+                <td>@Html.DisplayFor(modelItem => book.Classification)</td>
+                <td>@Html.DisplayFor(modelItem => book.Category)</td>
+                <td>@Html.DisplayFor(modelItem => book.PageCount)</td>
+                <td>@Html.DisplayFor(modelItem => book.Price)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(Model.PaginationInfo.PageNum == 1 ? "disabled" : "")">
+            <a class="page-link" href="?page=@(Model.PaginationInfo.PageNum - 1)" tabindex="-1">Previous</a>
+        </li>
+        @for (int i = 1; i <= Model.PaginationInfo.TotalNumPages; i++)
+        {
+            <li class="page-item @(i == Model.PaginationInfo.PageNum ? "active" : "")"><a class="page-link" href="?page=@i">@i</a></li>
+        }
+        <li class="page-item @(Model.PaginationInfo.PageNum == Model.PaginationInfo.TotalNumPages ? "disabled" : "")">
+            <a class="page-link" href="?page=@(Model.PaginationInfo.PageNum + 1)">Next</a>
+        </li>
+    </ul>
+</nav>
